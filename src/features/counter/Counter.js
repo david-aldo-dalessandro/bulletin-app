@@ -32,6 +32,7 @@ const Counter = () => {
       <input
         type="text"
         value={incrementAmount}
+        placeholder="Enter number"
         onChange={(e) => setIncrementAmount(e.target.value)}
       ></input>
 
