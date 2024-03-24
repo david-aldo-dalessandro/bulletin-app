@@ -33,7 +33,6 @@ const EditPostForm = () => {
     [editTitle, editContent].every(Boolean) && editRequestStatus === "idle";
 
   const onEditPostClicked = () => {
-    console.log(userId);
     if (canSave) {
       try {
         setEditRequestStatus("pending");

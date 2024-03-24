@@ -20,7 +20,8 @@ const PostsExcerpt = (props) => {
       <p className="excerpt">{props.post.body.substring(0, 75)}</p>
       <p className="postCredit">
         <Link to={`post/${props.post.id}`}>View Post </Link>
-        <Link to={`post/edit/${props.post.id}`}> Edit Post</Link>
+        <Link to={`post/edit/${props.post.id}`}> Edit Post </Link>
+        <Link to={`post/delete/${props.post.id}`}> Delete Post</Link>
         <PostAuthor userId={props.post.userId}></PostAuthor>
         <TimeAgo timeStamp={props.post.date}></TimeAgo>
       </p>

@@ -34,7 +34,18 @@ export const editPost = createAsyncThunk(
   async (initialPost) => {
     const { id } = initialPost;
     const response = await axios.put(`${POSTS_URL}/${id}`, initialPost);
+    console.log(response.data);
     return response.data;
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  "posts/deletePost",
+  async (initialPost) => {
+    const { id } = initialPost;
+    const response = await axios.delete(`${POSTS_URL}/${id}`);
+
+    return initialPost;
   }
 );
 
@@ -125,10 +136,19 @@ const postsSlice = createSlice({
       })
       .addCase(editPost.fulfilled, (state, action) => {
         const { id } = action.payload;
+
         action.payload.date = new Date().toISOString();
 
         const updatedPosts = state.posts.filter((post) => post.id !== id);
+
         state.posts = [...updatedPosts, action.payload];
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        const { id } = action.payload;
+        const updatedPosts = state.posts.filter(
+          (post) => post.id !== Number(id)
+        );
+        state.posts = updatedPosts;
       });
   },
 });
