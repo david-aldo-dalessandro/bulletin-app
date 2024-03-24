@@ -10,6 +10,7 @@ import { selectPostById } from "./postsSlice";
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
+import { Link } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 
@@ -31,6 +32,7 @@ const SinglePostPage = () => {
       <h2>{post.title}</h2>
       <p>{post.body}</p>
       <p className="postCredit">
+        <Link to={`/post/edit/${post.id}`}>Edit Post</Link>
         <PostAuthor userId={post.userId} />
         <TimeAgo timestape={post.date} />
       </p>

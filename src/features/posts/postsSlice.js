@@ -29,6 +29,15 @@ export const addNewPost = createAsyncThunk(
   }
 );
 
+export const editPost = createAsyncThunk(
+  "posts/editPost",
+  async (initialPost) => {
+    const { id } = initialPost;
+    const response = await axios.put(`${POSTS_URL}/${id}`, initialPost);
+    return response.data;
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -113,6 +122,13 @@ const postsSlice = createSlice({
         };
         console.log(action.payload);
         state.posts.push(action.payload);
+      })
+      .addCase(editPost.fulfilled, (state, action) => {
+        const { id } = action.payload;
+        action.payload.date = new Date().toISOString();
+
+        const updatedPosts = state.posts.filter((post) => post.id !== id);
+        state.posts = [...updatedPosts, action.payload];
       });
   },
 });

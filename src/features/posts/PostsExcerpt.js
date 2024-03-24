@@ -9,6 +9,7 @@ import React from "react";
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
+import EditPostForm from "./EditPostForm";
 
 import { Link } from "react-router-dom";
 
@@ -18,7 +19,8 @@ const PostsExcerpt = (props) => {
       <h3>{props.post.title}</h3>
       <p className="excerpt">{props.post.body.substring(0, 75)}</p>
       <p className="postCredit">
-        <Link to={`post/${props.post.id}`}>View Post</Link>
+        <Link to={`post/${props.post.id}`}>View Post </Link>
+        <Link to={`post/edit/${props.post.id}`}> Edit Post</Link>
         <PostAuthor userId={props.post.userId}></PostAuthor>
         <TimeAgo timeStamp={props.post.date}></TimeAgo>
       </p>
