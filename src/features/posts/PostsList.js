@@ -3,28 +3,14 @@
  * March 22, 2024
  * Post list component to expose logic
  */
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  selectAllPosts,
-  getPostsError,
-  getPostsStatus,
-  fetchPosts,
-} from "./postsSlice";
+import { useSelector } from "react-redux";
+import { selectAllPosts, getPostsError, getPostsStatus } from "./postsSlice";
 import PostsExcerpt from "./PostsExcerpt";
 
 const PostsList = () => {
-  const dispatch = useDispatch();
-
   const posts = useSelector(selectAllPosts);
   const postStatus = useSelector(getPostsStatus);
   const error = useSelector(getPostsError);
-
-  useEffect(() => {
-    if (postStatus === "idle") {
-      dispatch(fetchPosts());
-    }
-  }, [postStatus, dispatch]);
 
   let content;
   if (postStatus === "loading") {

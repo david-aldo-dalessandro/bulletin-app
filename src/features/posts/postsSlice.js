@@ -33,9 +33,14 @@ export const editPost = createAsyncThunk(
   "posts/editPost",
   async (initialPost) => {
     const { id } = initialPost;
-    const response = await axios.put(`${POSTS_URL}/${id}`, initialPost);
-    console.log(response.data);
-    return response.data;
+    try {
+      const response = await axios.put(`${POSTS_URL}/${id}`, initialPost);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      //added this to account for fake API not being able to be updated
+      return initialPost;
+    }
   }
 );
 
@@ -139,7 +144,9 @@ const postsSlice = createSlice({
 
         action.payload.date = new Date().toISOString();
 
-        const updatedPosts = state.posts.filter((post) => post.id !== id);
+        const updatedPosts = state.posts.filter(
+          (post) => post.id !== Number(id)
+        );
 
         state.posts = [...updatedPosts, action.payload];
       })
