@@ -4,7 +4,12 @@
  * A collection of reducer logic and actions for the posts feature of the app
  */
 
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+  nanoid,
+} from "@reduxjs/toolkit";
 import axios from "axios";
 import { sub } from "date-fns";
 
@@ -166,6 +171,11 @@ export const getPostsError = (state) => state.posts.error;
 export const selectPostById = (state, postId) => {
   return state.posts.posts.find((post) => post.id === postId);
 };
+
+export const selectPostsByUser = createSelector(
+  [selectAllPosts, (state, userId) => userId],
+  (posts, userId) => posts.filter((post) => post.userId === userId)
+);
 
 export const { postAdded, reactionAdded } = postsSlice.actions;
 
