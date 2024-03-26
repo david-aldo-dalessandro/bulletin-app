@@ -4,7 +4,7 @@
  * Form component for editing a post
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectPostById, editPost } from "./postsSlice";
 import { useParams, useNavigate } from "react-router-dom";
@@ -19,21 +19,18 @@ const EditPostForm = () => {
   const navigate = useNavigate();
 
   const users = useSelector(selectAllUsers);
-  const author = users.find((user) => user.id === post.userId);
+  const author = users.find((user) => user.id === post?.userId);
 
-  const [editTitle, setEditTitle] = useState(post.title);
-  const [editContent, setEditContent] = useState(post.body);
-  const [userId, setUserId] = useState(post.userId);
+  const [editTitle, setEditTitle] = useState(post?.title || "");
+  const [editContent, setEditContent] = useState(post?.body || "");
+  const [userId, setUserId] = useState(post?.userId || "");
   const [editRequestStatus, setEditRequestStatus] = useState("idle");
 
   const onTitleChanged = (e) => setEditTitle(e.target.value);
   const onContentChanged = (e) => setEditContent(e.target.value);
 
-  const canSave =
-    [editTitle, editContent].every(Boolean) && editRequestStatus === "idle";
-
   const onEditPostClicked = () => {
-    if (canSave) {
+    if ([editContent, editTitle].every(Boolean)) {
       try {
         setEditRequestStatus("pending");
         dispatch(
@@ -56,6 +53,17 @@ const EditPostForm = () => {
     }
   };
 
+  //this took care of not being able to refresh the page once 'Edit Post' was selected
+  useEffect(() => {
+    if (!post) {
+      setEditRequestStatus("pending");
+    } else {
+      setEditRequestStatus("idle");
+      setEditTitle(post.title);
+      setEditContent(post.body);
+    }
+  }, [post]);
+
   return (
     <section>
       <h2>Add New Post</h2>
@@ -69,7 +77,7 @@ const EditPostForm = () => {
           onChange={onTitleChanged}
         />
         <br />
-        <label htmlFor="postAuthor">Author: {author.name}</label>
+        <label htmlFor="postAuthor">Author: {author?.name}</label>
 
         <br />
         <label htmlFor="postContent">Content:</label>
@@ -80,7 +88,11 @@ const EditPostForm = () => {
           onChange={onContentChanged}
         />
         <br />
-        <button type="button" onClick={onEditPostClicked} disabled={!canSave}>
+        <button
+          type="button"
+          onClick={onEditPostClicked}
+          disabled={![editContent, editTitle].every(Boolean)}
+        >
           Save Post
         </button>
       </form>

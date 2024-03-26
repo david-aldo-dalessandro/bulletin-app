@@ -23,6 +23,10 @@ const UserPage = () => {
     </li>
   ));
 
+  if (!user) {
+    return <h1> User not found</h1>;
+  }
+
   return (
     <section>
       <h2>{user.name}</h2>

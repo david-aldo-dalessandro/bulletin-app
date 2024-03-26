@@ -12,20 +12,23 @@ import ReactionButtons from "./ReactionButtons";
 import EditPostForm from "./EditPostForm";
 
 import { Link } from "react-router-dom";
+import { selectPostById } from "./postsSlice";
+import { useSelector } from "react-redux";
 
 const PostsExcerpt = (props) => {
+  const post = useSelector((state) => selectPostById(state, props.postId));
   return (
     <article>
-      <h3>{props.post.title}</h3>
-      <p className="excerpt">{props.post.body.substring(0, 75)}</p>
+      <h3>{post.title}</h3>
+      <p className="excerpt">{post.body.substring(0, 75)}</p>
       <p className="postCredit">
-        <Link to={`post/${props.post.id}`}>View Post </Link>
-        <Link to={`post/edit/${props.post.id}`}> Edit Post </Link>
-        <Link to={`post/delete/${props.post.id}`}> Delete Post</Link>
-        <PostAuthor userId={props.post.userId}></PostAuthor>
-        <TimeAgo timeStamp={props.post.date}></TimeAgo>
+        <Link to={`post/${post.id}`}>View Post </Link>
+        <Link to={`post/edit/${post.id}`}> Edit Post </Link>
+        <Link to={`post/delete/${post.id}`}> Delete Post</Link>
+        <PostAuthor userId={post.userId}></PostAuthor>
+        <TimeAgo timeStamp={post.date}></TimeAgo>
       </p>
-      <ReactionButtons post={props.post} />
+      <ReactionButtons post={post} />
     </article>
   );
 };
