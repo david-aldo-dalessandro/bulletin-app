@@ -28,16 +28,10 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      /* return action.payload; */
       userAdapter.upsertMany(state, action.payload);
     });
   },
 });
-
-/* export const selectAllUsers = (state) => state.users;
-export const selectUserById = (state, userId) => {
-  return state.users.find((user) => user.id === userId);
-}; */
 
 export const { selectAll: selectAllUsers, selectById: selectUserById } =
   userAdapter.getSelectors((state) => state.users);
