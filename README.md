@@ -1,5 +1,5 @@
 ## Intro
-This is my bulletin application to learn redux. Again, I followed another tutorial and will make additions as I feel the creative urge to.
+This is my bulletin application to learn redux. In this branch I add the async functions for reaching out to jsonplaceholder for post titles, content, and authors. Also I add in the ability to create, update, and delete posts. While I followed the tutorial closely, I made some modifications of my own.
 
 ## How to
 
