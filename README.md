@@ -1,10 +1,13 @@
 ## Intro
-This is my bulletin application to learn redux. Again, I followed another tutorial and will make additions as I feel the creative urge to.
+This is part of my 'learn Redux with React' journey. This is just a template I will use to clone for future React/Redux projects.
 
 ## How to
 
-### Run the app 
-npm start
+### Pull it 
+cd /path/to/your/repository
+git remote add origin <this_url>
+git pull origin <this_branch>
 
-Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+
+
