@@ -1,5 +1,5 @@
 ## Intro
-This is my bulletin application to learn redux. Again, I followed another tutorial and will make additions as I feel the creative urge to.
+This is my bulletin application to learn redux. This part of the project is only to make posts and set reactions. 
 
 ## How to
 
